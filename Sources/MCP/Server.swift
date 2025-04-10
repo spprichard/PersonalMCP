@@ -7,6 +7,7 @@
 
 import Email
 import SwiftMCP
+import SwiftMail
 
 @MCPServer(name: "MCPServer", version: "0.0.1")
 actor MCPAPIServer {
@@ -63,5 +64,15 @@ actor MCPAPIServer {
             with: [.unseen]
         )
         return "✅ Found \(messages.count) unseen email(s)"
+    }
+    
+    @MCPTool(description: "Fetches emails with PDF attachments")
+    func fetchMessagesContainingPDFAttachment(in mailbox: String) async throws -> [MessageInfo] {
+        let messages = try await emailAPI.search(
+            mailbox: mailbox,
+            with: [.text(".pdf")]
+        )
+        
+        return messages
     }
 }
