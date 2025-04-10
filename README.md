@@ -2,33 +2,35 @@
 
 Currently I am thinking this project will be similar to API.me...
 1 difference is that this project will have an MCP API & a REST API. 
+The MCP interface will be used for clients like Claude, OpenAI, etc. 
+Where as the REST API could be leveraged for other reporting tasks or other automation tasks
 
 ## Project 
 ### Current State:
-- Created Version 1 of the email server
-    - Currently just returns stubbed out data 
-- Stoodup MCP Server
+- MCP Server
+    - Can search for unread emails in provided mailbox
+![Search For Unread Emails](Images/EmailInboxSearch.png)
 
-### Next Steps
+- Email Server
+    - Can complete basic searches for a provided mailbox 
+
+### Project Next Steps
 - Replace stubs with real calls to IMAP server using SwiftMail (Email API Server)
 - Verify generated email client works
     - Assuming this works, add MCP tool call which uses generated client to perform get mail/search
-
+---
 ## REST API
 ### Email
 #### Current State: 
-- Created a basic OpenAPI Spec
-- Allows for type, client & server
-
+- Can search for unread emails in provided mailbox
 
 #### Next:
 - Use latest version of SwiftMail to get emails with attachments
-    - Create an Endpoint for this to allow for getting emails from a specific mailbox
-    - Create an Endpoint for getting the content of an attachment    
+    - Allow for the fetching of email attachments    
 ---
 ## MCP API
 ### Current State:  
-[*] Have a basic greet & ping tool call
+- Can search for unread emails in provided mailbox
 
 ### Next:
 - Explore how we could use Templated Resources 
