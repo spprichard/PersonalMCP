@@ -1,0 +1,160 @@
+openapi: '3.1.0'
+info:
+  title: EmailService
+  version: 0.0.1
+servers:
+  - url: http://localhost:8080
+    description: Server for local development
+paths:
+  /api/v1/email/search:
+    get:
+      operationId: getSearch
+      parameters:
+        - $ref: '#/components/parameters/mailbox'
+        - $ref: '#/components/parameters/criteria'
+      responses:
+        '200':
+          description: A success response with a search query.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResults'
+  /health:
+    get:
+      operationId: getHealth
+      responses:
+        '200':
+          description: A success response with a health status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+
+components:
+  parameters:
+    mailbox:
+      name: mailbox
+      in: query
+      required: true
+      description: The name of the inbox you would like to search
+      schema:
+        type: string
+    criteria:
+      name: criteria
+      in: query
+      required: true
+      description: A list of criteria to search by. Can include simple criteria or a 'date' criterion with an associated date.
+      style: form
+      explode: true # Changed to true to allow for array of objects
+      example:
+        - all
+        - seen
+        - type: date
+          value: "2024-01-15"
+      schema:
+        type: array
+        items:
+          oneOf:
+            - type: string
+              enum:
+                - all
+                - answered
+                - deleted
+                - draft
+                - flagged
+                - new
+                - old
+                - recent
+                - seen
+                - unseen
+            - type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                    - dateBefore
+                    - dateOn
+                    - bodyContaining
+                    - from
+                    - keyword
+                    - sentOn
+                    - subject
+                    - since
+                value:
+                  type: string
+                  format: date
+              required:
+                - type
+                - value
+            - type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                    - header
+                value1:
+                    type: string
+                value2:
+                    type: string
+              required:
+                - type
+                - value1
+                - value2
+  schemas:
+    SearchResults:
+      description: An array of messages based on the provided search criteria
+      type: array
+      items:
+        type: object
+        $ref: '#/components/schemas/MessageInfo'
+    MessageInfo:
+      type: object
+      description: Structure to hold email header and part structure information
+      properties:
+        sequenceNumber:
+          type: integer
+          description: SequenceNumber of the email message
+        uID:
+          description: UID of the email message
+          type: integer
+        subject:
+          description: The subject of the message
+          type: string
+        from:
+          description: The sender of the message
+          type: string
+        to:
+          description: The recipients of the message
+          type: string
+        date:
+          description: The date of the message
+          type: string
+          format: date
+        parts:
+          description: The recipients of the message
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/MessagePart'
+      required:
+        - sequenceNumber
+        - parts
+    MessagePart:
+      type: object
+      description: A part of an email message
+      properties:
+        contentType:
+          type: string
+          description: The content type of the part (e.g., "text/html", "image/jpeg")
+      required:
+        - contentType
+    Health:
+      type: object
+      description: A value with the health contents.
+      properties:
+        status:
+          type: string
+          description: The string representation of the health status.
+      required:
+        - status
+
