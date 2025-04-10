@@ -43,64 +43,64 @@ components:
       name: criteria
       in: query
       required: true
-      description: A list of criteria to search by. Can include simple criteria or a 'date' criterion with an associated date.
-      style: form
-      explode: true # Changed to true to allow for array of objects
-      example:
-        - all
-        - seen
-        - type: date
-          value: "2024-01-15"
+      description: A JSON object defining the search criteria.
       schema:
-        type: array
-        items:
-          oneOf:
-            - type: string
-              enum:
-                - all
-                - answered
-                - deleted
-                - draft
-                - flagged
-                - new
-                - old
-                - recent
-                - seen
-                - unseen
-            - type: object
-              properties:
-                type:
-                  type: string
-                  enum:
-                    - dateBefore
-                    - dateOn
-                    - bodyContaining
-                    - from
-                    - keyword
-                    - sentOn
-                    - subject
-                    - since
-                value:
-                  type: string
-                  format: date
-              required:
-                - type
-                - value
-            - type: object
-              properties:
-                type:
-                  type: string
-                  enum:
-                    - header
-                value1:
-                    type: string
-                value2:
-                    type: string
-              required:
-                - type
-                - value1
-                - value2
+        type: string
+      style: form
+      explode: false
   schemas:
+    SearchCriteriaQuery:
+      description: The contents of a search query
+      type: object
+      content:
+        application/json:
+      properties:
+        simple:
+          type: array
+          items:
+            type: string
+        singleValue:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/SingleValueSearch'
+      required:
+        - simple
+        - singleValue
+    SearchCriteriaType:
+      description: The supported search criteria
+      oneOf:
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+              - dateBefore
+              - dateOn
+              - bodyContaining
+              - from
+              - keyword
+              - sentOn
+              - subject
+              - since
+              - text
+        required:
+          - type
+
+    SingleValueSearch:
+      description: A search criteria supporting a single string value
+      type: object
+      properties:
+        criteriaType:
+          type: object
+          description: the type of search criteria i.e text
+          $ref: '#/components/schemas/SearchCriteriaType'
+        value:
+          type: string
+          description: the value to search by
+      required:
+        - criteriaType
+        - value
     SearchResults:
       description: An array of messages based on the provided search criteria
       type: array
@@ -143,10 +143,30 @@ components:
       type: object
       description: A part of an email message
       properties:
+        section:
+            type: string
+            description: The section number (e.g., [1, 2, 3] represents "1.2.3")
         contentType:
           type: string
           description: The content type of the part (e.g., "text/html", "image/jpeg")
+        disposition:
+          type: string
+          description: The content disposition (e.g., "inline", "attachment")
+        encoding:
+          type: string
+          description: The content transfer encoding (e.g., "base64", "quoted-printable")
+        filename:
+          type: string
+          description: The filename of the part (if any)
+        contentId:
+          type: string
+          description: The content ID of the part (if any)
+        data:
+          type: string
+          format: binary
+          description: The content data (if any)
       required:
+        - section
         - contentType
     Health:
       type: object

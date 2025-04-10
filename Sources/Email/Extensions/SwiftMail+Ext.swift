@@ -1,39 +1,12 @@
 //
-//  Extensions.swift
+//  SwiftMail+Ext.swift
 //  API
 //
 //  Created by Steven Prichard on 2025-04-10.
 //
 
-import Foundation
 import SwiftMail
-
-package extension Components.Schemas.MessageInfo {
-    init(info: SwiftMail.MessageInfo) {
-        self.init(
-            sequenceNumber: Int(info.sequenceNumber.value),
-            uID: Self.uID(info),
-            subject: info.subject,
-            from: info.from,
-            to: nil,
-            date: nil,
-            parts: Self.parts(info)
-        )
-    }
-    
-    static func uID(_ info: SwiftMail.MessageInfo) -> Int? {
-        guard let uID = info.uid else { return nil }
-        return Int(uID.value)
-    }
-    
-    static func parts(_ info: SwiftMail.MessageInfo) -> [Components.Schemas.MessagePart] {
-        return info.parts.map { part in
-            Components.Schemas.MessagePart(
-                contentType: part.contentType
-            )
-        }
-    }
-}
+import Foundation
 
 package extension SwiftMail.MessageInfo {
     init(info: Components.Schemas.MessageInfo) {

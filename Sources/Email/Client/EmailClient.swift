@@ -5,17 +5,18 @@
 //  Created by Steven Prichard on 2025-04-03.
 //
 
-import SwiftMail
+@preconcurrency import SwiftMail
 import Foundation
 import OpenAPIRuntime
 import OpenAPIAsyncHTTPClient
 
 public struct EmailClient: Sendable {
+    private let jsonEncoder: JSONEncoder
     private var client: Client
     
     public init() throws {
+        self.jsonEncoder = JSONEncoder()
         let url = try Servers.Server1.url()
-        print("ℹ️ Creating client with url: \(url)")
         
         self.client = .init(
             serverURL: url,
@@ -31,12 +32,14 @@ public struct EmailClient: Sendable {
         guard !mailbox.isEmpty else {
             throw Errors.missingMailbox
         }
-                
+        
+        let searchCriteria = try encodeSearchCriteria(criteria)
+
         let result = try await client.getSearch(
             .init(
                 query: .init(
                     mailbox: mailbox,
-                    criteria: try encode(criteria)
+                    criteria: searchCriteria
                 )
             )
         )
@@ -55,41 +58,23 @@ public struct EmailClient: Sendable {
         }
     }
     
-    private func encode(_ criteria: [SearchCriteria]) throws -> [Components.Parameters.CriteriaPayload]  {
-        try criteria.map { criteria in
-            switch criteria {
-            case .all:
-                return .case1(.all)
-            case .answered:
-                return .case1(.answered)
-            case .flagged:
-                return .case1(.flagged)
-            case .deleted:
-                return .case1(.deleted)
-            case .draft:
-                return .case1(.draft)
-            case .new:
-                return .case1(.new)
-            case .old:
-                return .case1(.old)
-            case .recent:
-                return .case1(.recent)
-            case .seen:
-                return .case1(.seen)
-            case .unseen:
-                return .case1(.unseen)
-            default:
-                throw SearchCriteriaErrors.unsupportedSearchCriteria
-            }
+    
+    private func encodeSearchCriteria(_ criteria: [SearchCriteria]) throws -> String {
+        let searchCriteriaQuery = SearchCritriaQueryEncoder.encode(criteria: criteria)
+        let encodedSearchParameter = try jsonEncoder.encode(searchCriteriaQuery)
+        
+        guard let searchCriteria = String(data: encodedSearchParameter, encoding: .utf8) else {
+            throw Errors.searchCriteriaEncodingFailed
         }
+        
+        return searchCriteria
     }
 }
-
-
 
 extension EmailClient {
     enum Errors: Error {
         case missingMailbox
+        case searchCriteriaEncodingFailed
         case undocumented(Int, UndocumentedPayload)
     }
 }
