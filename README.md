@@ -15,9 +15,10 @@ Where as the REST API could be leveraged for other reporting tasks or other auto
     - Can complete basic searches for a provided mailbox 
 
 ### Project Next Steps
-- Replace stubs with real calls to IMAP server using SwiftMail (Email API Server)
-- Verify generated email client works
-    - Assuming this works, add MCP tool call which uses generated client to perform get mail/search
+1. Gather PDF attachments
+2. Add OCR capability 
+    - Start with Mistral OCR API?
+3. Upon completion of 1 & 2, add ability to fetch email with attachment & perform OCR, returning structured output 
 ---
 ## REST API
 ### Email
