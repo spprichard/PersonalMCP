@@ -1,5 +1,5 @@
 {
-  "originHash" : "9d09c5c6af4538d5cfaa2260a7cc07ef426f824e25efc9ae838ee85b0cf9d142",
+  "originHash" : "5b6d0dc8b62132bb46cb7fdbe38555b9107a35cb4c8633ed7d55da29870e8c58",
   "pins" : [
     {
       "identity" : "anycodable",
@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/hummingbird-project/hummingbird",
       "state" : {
-        "revision" : "56544ae4959f1e1a56b60f3590523cd5592b9750",
-        "version" : "2.10.0"
+        "revision" : "df95fe30a712803273dbf90572a4c498f7bf3b01",
+        "version" : "2.11.1"
       }
     },
     {
@@ -33,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mattpolzin/OpenAPIKit",
       "state" : {
-        "revision" : "fd27b297993923c9a1725dc62553d06579c7a33e",
-        "version" : "3.4.2"
+        "revision" : "da7d3a5ddff0dd8e5e9fdb5585d186d645bcc21b",
+        "version" : "3.5.0"
       }
     },
     {
@@ -112,10 +112,10 @@
     {
       "identity" : "swift-http-types",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-http-types.git",
+      "location" : "https://github.com/apple/swift-http-types",
       "state" : {
-        "revision" : "ef18d829e8b92d731ad27bb81583edd2094d1ce3",
-        "version" : "1.3.1"
+        "revision" : "a0a57e949a8903563aba4615869310c0ebf14c03",
+        "version" : "1.4.0"
       }
     },
     {
@@ -169,7 +169,7 @@
       "location" : "https://github.com/apple/swift-nio-imap",
       "state" : {
         "branch" : "main",
-        "revision" : "a941316af399aba4c27c4613b62d4dbe6b867cf1"
+        "revision" : "adfb504006e6f002580b533a8d16caeb9e0c92b3"
       }
     },
     {
@@ -213,8 +213,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-openapi-generator",
       "state" : {
-        "revision" : "755c0ec69bd667aa4e8ba50c8b710585d302879e",
-        "version" : "1.7.1"
+        "revision" : "02cab48b66b4b412013827c2938adaf0eb67dc8d",
+        "version" : "1.7.2"
       }
     },
     {
@@ -286,7 +286,7 @@
       "location" : "https://github.com/Cocoanetics/SwiftMail",
       "state" : {
         "branch" : "main",
-        "revision" : "8fb617ca52e056c1ab662b3a5d138f759e858be0"
+        "revision" : "7a70022e73b2664defd17fdd5d940c0171a133bc"
       }
     },
     {
@@ -295,7 +295,7 @@
       "location" : "https://github.com/Cocoanetics/SwiftMCP",
       "state" : {
         "branch" : "main",
-        "revision" : "71f1727bb759538149c83b2602c1f94f04a3cddb"
+        "revision" : "801534f8bb820b2977430985ee37e49e551b9636"
       }
     },
     {

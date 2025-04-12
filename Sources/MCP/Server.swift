@@ -66,8 +66,8 @@ actor MCPAPIServer {
         return "✅ Found \(messages.count) unseen email(s)"
     }
     
-    @MCPTool(description: "Fetches emails with PDF attachments")
-    func fetchMessagesContainingPDFAttachment(in mailbox: String) async throws -> [MessageInfo] {
+    @MCPTool(description: "Fetches emails with PDF attachments, from provided mailbox")
+    func fetchMessagesContainingPDFAttachment(in mailbox: String) async throws -> [Components.Schemas.EmailMessage] {
         let messages = try await emailAPI.search(
             mailbox: mailbox,
             with: [.text(".pdf")]

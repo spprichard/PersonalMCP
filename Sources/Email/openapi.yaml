@@ -106,10 +106,10 @@ components:
       type: array
       items:
         type: object
-        $ref: '#/components/schemas/MessageInfo'
-    MessageInfo:
+        $ref: '#/components/schemas/EmailMessage'
+    EmailMessage:
       type: object
-      description: Structure to hold email header and part structure information
+      description: A type meant to hold the email header & part structure information
       properties:
         sequenceNumber:
           type: integer
@@ -163,8 +163,10 @@ components:
           description: The content ID of the part (if any)
         data:
           type: string
-          format: binary
-          description: The content data (if any)
+          description: The raw content data (if any)
+        decodedData:
+          type: string
+          description: The decoded data (if any)
       required:
         - section
         - contentType

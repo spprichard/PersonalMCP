@@ -9,7 +9,7 @@ import SwiftMail
 import Foundation
 
 package extension SwiftMail.MessageInfo {
-    init(info: Components.Schemas.MessageInfo) {
+    init(info: Components.Schemas.EmailMessage) {
         self.init(
             sequenceNumber: SequenceNumber(info.sequenceNumber),
             uid: Self.uID(from: info),
@@ -25,12 +25,12 @@ package extension SwiftMail.MessageInfo {
         )
     }
     
-    static func uID(from info: Components.Schemas.MessageInfo) -> UID? {
+    static func uID(from info: Components.Schemas.EmailMessage) -> UID? {
         guard let uIDInt = info.uID else { return nil }
         return UID(uIDInt)
     }
     
-    static func date(from info: Components.Schemas.MessageInfo) -> Date? {
+    static func date(from info: Components.Schemas.EmailMessage) -> Date? {
         guard let dateString = info.date else { return nil }
         return EmailServerV1.dateFormatter.date(from: dateString)
     }

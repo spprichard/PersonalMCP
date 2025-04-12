@@ -11,6 +11,7 @@ import OpenAPIRuntime
 import OpenAPIAsyncHTTPClient
 
 public struct EmailClient: Sendable {
+    public typealias EmailMessage = Components.Schemas.EmailMessage
     private let jsonEncoder: JSONEncoder
     private var client: Client
     
@@ -28,7 +29,7 @@ public struct EmailClient: Sendable {
         try await client.getHealth()
     }
     
-    public func search(mailbox: String, with criteria: [SearchCriteria]) async throws -> [MessageInfo] {
+    public func search(mailbox: String, with criteria: [SearchCriteria]) async throws -> [EmailMessage] {
         guard !mailbox.isEmpty else {
             throw Errors.missingMailbox
         }
@@ -47,7 +48,7 @@ public struct EmailClient: Sendable {
         switch result {
         case .ok(let response):
             do {
-                return try response.body.json.map { MessageInfo(info: $0) }
+                return try response.body.json.map { $0 }
             } catch let error {
                 print("❌ Failed to fetch messages: \(error)")
                 return []

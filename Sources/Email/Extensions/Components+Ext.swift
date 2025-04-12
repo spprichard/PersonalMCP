@@ -8,29 +8,29 @@
 import SwiftMail
 import Foundation
 
-/// MARK: Components.Schemas.MessageInfo
-extension Components.Schemas.MessageInfo {
-    init(info: SwiftMail.MessageInfo) {
+/// MARK: Components.Schemas.EmailMessage
+extension Components.Schemas.EmailMessage {
+    init(message: SwiftMail.Message) {
         self.init(
-            sequenceNumber: Int(info.sequenceNumber.value),
-            uID: Self.uID(info),
-            subject: info.subject,
-            from: info.from,
+            sequenceNumber: Int(message.sequenceNumber.value),
+            uID: Self.uID(message),
+            subject: message.subject,
+            from: message.from,
             to: nil,
             date: nil,
-            parts: Self.parts(info)
+            parts: Self.parts(message)
         )
     }
 }
 
-extension Components.Schemas.MessageInfo {
-    static func uID(_ info: SwiftMail.MessageInfo) -> Int? {
+extension Components.Schemas.EmailMessage {
+    static func uID(_ info: SwiftMail.Message) -> Int? {
         guard let uID = info.uid else { return nil }
         return Int(uID.value)
     }
     
-    static func parts(_ info: SwiftMail.MessageInfo) -> [Components.Schemas.MessagePart] {
-        info.parts.map { Components.Schemas.MessagePart(messagePart: $0) }
+    static func parts(_ message: SwiftMail.Message) -> [Components.Schemas.MessagePart] {
+        message.parts.map { Components.Schemas.MessagePart(messagePart: $0) }
     }
 }
 
@@ -39,5 +39,17 @@ extension Components.Schemas.MessagePart {
     init(messagePart: SwiftMail.MessagePart) {
         section = messagePart.section.description
         contentType = messagePart.contentType
+        disposition = messagePart.disposition
+        encoding = messagePart.encoding
+        contentId = messagePart.contentId
+        filename = messagePart.filename
+                
+        if let data = messagePart.data {
+            self.data = String(data: data, encoding: .utf8)
+        }
+        
+        if let decodedData = messagePart.decodedData() {
+            self.decodedData = String(data: decodedData, encoding: .utf8)
+        }
     }
 }
