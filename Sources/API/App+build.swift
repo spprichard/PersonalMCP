@@ -1,10 +1,9 @@
+import OcrAPI
 import Logging
-import SwiftMCP
+import EmailAPI
 import Foundation
 import Hummingbird
 import ServiceLifecycle
-
-import Email
 
 public protocol AppArguments {
     var hostname: String { get }
@@ -22,6 +21,8 @@ extension App {
         
         let emailServer = try EmailServerFactory.makeV1(on: router)
         try await emailServer.setup()
+        
+        try OCRServerFactory.makeMistralOCRServer(on: router)
 
         let app = Application(
             router: router,

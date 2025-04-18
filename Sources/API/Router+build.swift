@@ -21,10 +21,7 @@ extension App {
         let router = Router(context: AppRequestContext.self)
         // Add middleware
         router.addMiddleware {
-            // logging middleware
             LogRequestsMiddleware(.info)
-            // File middleware
-            // FileMiddleware()
         }
         
         return router

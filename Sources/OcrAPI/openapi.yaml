@@ -1,0 +1,99 @@
+openapi: '3.1.0'
+info:
+  title: OcrAPI
+  version: 0.0.1
+servers:
+  - url: http://localhost:8080
+    description: Server for local development
+paths:        
+  /api/v1/ocr/email:
+    post:
+      operationId: ocrEmail
+      requestBody:
+        description: Performs OCR on provided email attachment
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OCREmailRequest"
+      responses:
+        '200':
+          description: A success response to perform OCR on an email attachment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OCRResponse'
+        '400':
+          description: A failure response indicating a bad request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: The error message indicating a bad request.
+                    example: Bad request
+        '404':
+          description: A failure response indicating the email was not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: The error message indicating the email was not found.
+                    example: Email not found
+  /api/v1/ocr/health:
+    get:
+      operationId: getHealth
+      responses:
+        '200':
+          description: A success response with a health status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+components:
+  schemas:
+    OCREmailRequest:
+      type: object 
+      properties:
+        mailbox:
+          type: string
+          description: The name of the inbox you would like to search
+        sequenceNumber:
+          type: integer
+          description: SequenceNumber of the email message
+        uID:
+          type: integer
+          description: UID of the email message
+        section:
+            type: string
+            description: The section number (e.g., [1, 2, 3] represents "1.2.3")
+      required:
+        - mailbox
+        - uID
+        - sequenceNumber
+        - section
+        
+    OCRResponse:
+      type: object
+      properties:
+        filename:
+          type: string
+        text:
+          type: string
+      required:
+        - filename
+        - text
+    Health:
+      type: object
+      description: A value with the health contents.
+      properties:
+        status:
+          type: string
+          description: The string representation of the health status.
+      required:
+        - status

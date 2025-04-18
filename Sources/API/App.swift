@@ -12,8 +12,6 @@ struct App: AsyncParsableCommand, AppArguments {
 
     func run() async throws {
         let environment = try await Environment().merging(with: .dotEnv())
-        
-        
         let app = try await App.buildApplication(self, environment: environment)
         try await app.runService()
     }

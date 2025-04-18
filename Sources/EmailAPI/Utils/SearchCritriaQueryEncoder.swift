@@ -99,6 +99,11 @@ enum SearchCritriaQueryEncoder {
                     criteriaType: .case1(.init(_type: .text)),
                     value: value
                 )
+            case .uid(let uID):
+                return SingleValueCriteria(
+                    criteriaType: .case1(.init(_type: .uID)),
+                    value: String(uID)
+                )
             default:
                 return nil
             }
