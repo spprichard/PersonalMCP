@@ -37,8 +37,6 @@ extension String {
     }
 }
 
-
-
 extension Components.Schemas.SingleValueSearch {
     func searchCriteria() throws -> SearchCriteria {
         switch self.criteriaType {
@@ -74,6 +72,9 @@ extension Components.Schemas.SingleValueSearch {
                 return .keyword(value)
             case .subject:
                 return .subject(value)
+            case .uID:
+                let id = Int(value) ?? 0
+                return .uid(id)
             }
         }
     }
@@ -94,4 +95,3 @@ extension Components.Schemas.SearchCriteriaQuery {
         return criteria
     }
 }
-

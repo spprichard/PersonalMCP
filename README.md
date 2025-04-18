@@ -24,10 +24,19 @@ Where as the REST API could be leveraged for other reporting tasks or other auto
 ### Email
 #### Current State: 
 - Can search for unread emails in provided mailbox
+- Updated to version of SwiftMail which handles email header & body differently
 
 #### Next:
-- Use latest version of SwiftMail to get emails with attachments
-    - Allow for the fetching of email attachments    
+
+
+### OCR
+#### Current State: 
+- Created new OCR server & client, uses Mistral under the hood
+- Created new endpoint for performing OCR on an email, providing correct email search criteria 
+
+#### Next:
+- Get MCP server running again, such that we can list email details. Then find the uID, sequenceNumber, section for a valid email to perform OCR on  
+    
 ---
 ## MCP API
 ### Current State:  

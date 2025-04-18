@@ -1,5 +1,5 @@
 {
-  "originHash" : "5b6d0dc8b62132bb46cb7fdbe38555b9107a35cb4c8633ed7d55da29870e8c58",
+  "originHash" : "7497b0b11818deaa86599d2644b69bef0d5b51da358b1fdc03d30ae98f8071ce",
   "pins" : [
     {
       "identity" : "anycodable",
@@ -22,10 +22,19 @@
     {
       "identity" : "hummingbird",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/hummingbird-project/hummingbird",
+      "location" : "https://github.com/hummingbird-project/hummingbird.git",
       "state" : {
         "revision" : "df95fe30a712803273dbf90572a4c498f7bf3b01",
         "version" : "2.11.1"
+      }
+    },
+    {
+      "identity" : "multipart-kit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/vapor/multipart-kit",
+      "state" : {
+        "revision" : "3498e60218e6003894ff95192d756e238c01f44e",
+        "version" : "4.7.1"
       }
     },
     {
@@ -40,7 +49,7 @@
     {
       "identity" : "swift-algorithms",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-algorithms.git",
+      "location" : "https://github.com/apple/swift-algorithms",
       "state" : {
         "revision" : "87e50f483c54e6efd60e885f7f5aa946cee68023",
         "version" : "1.2.1"
@@ -101,6 +110,15 @@
       }
     },
     {
+      "identity" : "swift-extras-base64",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-extras/swift-extras-base64",
+      "state" : {
+        "revision" : "97237cf1bc1feebaeb0febec91c1e1b9e4d839b3",
+        "version" : "0.7.0"
+      }
+    },
+    {
       "identity" : "swift-http-structured-headers",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-http-structured-headers.git",
@@ -139,7 +157,7 @@
     {
       "identity" : "swift-nio",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-nio.git",
+      "location" : "https://github.com/apple/swift-nio",
       "state" : {
         "revision" : "c51907a839e63ebf0ba2076bba73dd96436bd1b9",
         "version" : "2.81.0"
@@ -168,14 +186,13 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-nio-imap",
       "state" : {
-        "branch" : "main",
-        "revision" : "adfb504006e6f002580b533a8d16caeb9e0c92b3"
+        "revision" : "1b3dc9e1cd9dd0da4ba18f1c3f34b5ae101c47f0"
       }
     },
     {
       "identity" : "swift-nio-ssl",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-nio-ssl.git",
+      "location" : "https://github.com/apple/swift-nio-ssl",
       "state" : {
         "revision" : "0cc3528ff48129d64ab9cab0b1cd621634edfc6b",
         "version" : "2.29.3"
@@ -278,15 +295,6 @@
       "state" : {
         "revision" : "a34201439c74b53f0fd71ef11741af7e7caf01e1",
         "version" : "1.4.2"
-      }
-    },
-    {
-      "identity" : "swiftmail",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Cocoanetics/SwiftMail",
-      "state" : {
-        "branch" : "main",
-        "revision" : "7a70022e73b2664defd17fdd5d940c0171a133bc"
       }
     },
     {

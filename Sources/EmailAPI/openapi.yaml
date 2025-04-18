@@ -1,6 +1,6 @@
 openapi: '3.1.0'
 info:
-  title: EmailService
+  title: EmailKit
   version: 0.0.1
 servers:
   - url: http://localhost:8080
@@ -19,7 +19,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SearchResults'
-  /health:
+  /api/v1/email/health:
     get:
       operationId: getHealth
       responses:
@@ -29,7 +29,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Health'
-
 components:
   parameters:
     mailbox:
@@ -84,9 +83,9 @@ components:
               - subject
               - since
               - text
+              - uID
         required:
           - type
-
     SingleValueSearch:
       description: A search criteria supporting a single string value
       type: object

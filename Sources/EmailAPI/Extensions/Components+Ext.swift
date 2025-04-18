@@ -37,19 +37,15 @@ extension Components.Schemas.EmailMessage {
 /// MARK: Components.Schemas.MessagePart
 extension Components.Schemas.MessagePart {
     init(messagePart: SwiftMail.MessagePart) {
-        section = messagePart.section.description
-        contentType = messagePart.contentType
-        disposition = messagePart.disposition
-        encoding = messagePart.encoding
-        contentId = messagePart.contentId
-        filename = messagePart.filename
-                
-        if let data = messagePart.data {
-            self.data = String(data: data, encoding: .utf8)
-        }
-        
-        if let decodedData = messagePart.decodedData() {
-            self.decodedData = String(data: decodedData, encoding: .utf8)
-        }
+        self.init(
+            section: messagePart.section.description,
+            contentType: messagePart.contentType,
+            disposition: messagePart.disposition,
+            encoding: messagePart.encoding,
+            filename: messagePart.filename,
+            contentId: messagePart.contentId,
+            data: String(data: messagePart.data ?? Data(), encoding: .utf8),
+            decodedData: nil
+        )
     }
 }

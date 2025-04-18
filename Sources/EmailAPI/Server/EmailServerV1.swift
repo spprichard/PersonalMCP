@@ -5,17 +5,15 @@
 //  Created by Steven Prichard on 2025-04-06.
 //
 
-@preconcurrency import  SwiftMail
 import Foundation
 import Hummingbird
 import SwiftDotenv
 import OpenAPIRuntime
 import ServiceLifecycle
 import OpenAPIHummingbird
+@preconcurrency import SwiftMail
 
 public actor EmailServerV1: APIProtocol {
-    public static let rootPath = "api/v1/email"
-    public static let searchPath = "\(EmailServerV1.rootPath)/search"
     private let configuration: IMAPConfiguration
     private let imapServer: IMAPServer
     

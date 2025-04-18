@@ -5,10 +5,10 @@
 //  Created by Steven Prichard on 2025-04-03.
 //
 
-@preconcurrency import SwiftMail
 import Foundation
 import OpenAPIRuntime
 import OpenAPIAsyncHTTPClient
+@preconcurrency import SwiftMail
 
 public struct EmailClient: Sendable {
     public typealias EmailMessage = Components.Schemas.EmailMessage
